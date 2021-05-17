@@ -9,8 +9,13 @@ package br.com.zup.edu;
 
 service KeyManagerService {
   rpc cadastra(NovaChaveRequest) returns (NovaChaveResponse){}
+  rpc remove(RemoveChaveRequest) returns (RemoveChaveResponse){}
 }
 
+
+/**
+    Cria nova chave pix
+ */
 message NovaChaveRequest{
   string clientId = 1;
   TipoConta tipoConta = 2;
@@ -34,4 +39,17 @@ enum TipoChave{
   CPF = 2;
   CELULAR = 3;
   ALEATORIA = 4;
+}
+
+/**
+    Remove chave pix
+*/
+message RemoveChaveRequest{
+  string clientId = 1;
+  string pixId = 2;
+}
+
+message RemoveChaveResponse{
+  string clientId = 1;
+  string pixId = 2;
 }

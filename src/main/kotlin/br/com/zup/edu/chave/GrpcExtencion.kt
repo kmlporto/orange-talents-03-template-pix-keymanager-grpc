@@ -1,9 +1,11 @@
 package br.com.zup.edu.chave
 
 import br.com.zup.edu.NovaChaveRequest
+import br.com.zup.edu.RemoveChaveRequest
 import br.com.zup.edu.TipoChave.UNKNOWN_TIPO_CHAVE
 import br.com.zup.edu.TipoConta.UNKNOWN_TIPO_CONTA
 import br.com.zup.edu.chave.cadastra.NovaChavePix
+import br.com.zup.edu.chave.remove.RemoveChavePix
 
 fun NovaChaveRequest.toNovaChave(): NovaChavePix {
     return NovaChavePix(
@@ -20,3 +22,6 @@ fun NovaChaveRequest.toNovaChave(): NovaChavePix {
     )
 }
 
+fun RemoveChaveRequest.toRemove(): RemoveChavePix {
+    return RemoveChavePix(clientId = this.clientId, pixId = this.pixId)
+}
