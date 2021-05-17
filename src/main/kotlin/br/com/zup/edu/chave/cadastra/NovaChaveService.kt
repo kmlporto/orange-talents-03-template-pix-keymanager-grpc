@@ -24,11 +24,7 @@ class NovaChaveService(
 
         val response = itauClient.consulta(novaChavePix.clientId!!, novaChavePix.tipoConta!!)
 
-        if(response.status.name == "NOT_FOUND") {
-            throw IllegalArgumentException("Conta inválida")
-        }
-        val conta = response.body()?.toModel()!!
-
+        val conta = response.body()?.toModel() ?: throw IllegalArgumentException("Conta inválida")
 
         val chave = novaChavePix.toChavePix(conta)
         repository.save(chave)
