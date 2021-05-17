@@ -10,8 +10,8 @@ class HtttpClientExceptionHandler : ExceptionHandler<HttpClientResponseException
 
     override fun handle(e: HttpClientResponseException): ExceptionHandler.StatusWithDetails {
         return ExceptionHandler.StatusWithDetails(
-                Status.INTERNAL
-                .withDescription(e.message)
+                Status.INVALID_ARGUMENT
+                .withDescription("Argumentos inválidos")
                 .withCause(e)
         )
     }

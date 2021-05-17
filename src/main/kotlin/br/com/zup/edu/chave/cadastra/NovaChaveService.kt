@@ -2,13 +2,8 @@ package br.com.zup.edu.chave.cadastra
 
 import br.com.zup.edu.chave.ChavePix
 import br.com.zup.edu.chave.ChavePixRepository
-import br.com.zup.edu.chave.Conta
 import br.com.zup.edu.exceptions.ChaveExistenteException
-import br.com.zup.edu.exceptions.ContaNaoEncontradaException
-import br.com.zup.edu.externo.ContaResponse
 import br.com.zup.edu.externo.ItauClient
-import io.micronaut.http.HttpResponse
-import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.validation.Validated
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,7 +25,7 @@ class NovaChaveService(
         val response = itauClient.consulta(novaChavePix.clientId!!, novaChavePix.tipoConta!!)
 
         if(response.status.name == "NOT_FOUND") {
-            throw ContaNaoEncontradaException()
+            throw IllegalArgumentException("Conta inválida")
         }
         val conta = response.body()?.toModel()!!
 

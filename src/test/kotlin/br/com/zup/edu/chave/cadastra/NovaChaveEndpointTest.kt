@@ -140,18 +140,29 @@ internal class NovaChaveEndpointTest(val grpcClient: KeyManagerServiceGrpc.KeyMa
     }
 
     @Test
-    fun `falha em registrar conta que nao existe`(){
+    fun `falha em registrar chave com conta que nao existe`(){
         val thrown = assertThrows<StatusRuntimeException> {
             grpcClient.cadastra(COM_CONTA_INVALIDA.get)
         }
         with(thrown){
-            assertEquals(Status.NOT_FOUND.code, status.code)
+            assertEquals(Status.INVALID_ARGUMENT.code, status.code)
             assertEquals("Conta inválida", status.description)
         }
     }
 
     @Test
-    fun `falha em registrar conta null`(){
+    fun `falha em registrar chave quando cliente itau retorna 500`(){
+        val thrown = assertThrows<StatusRuntimeException> {
+            grpcClient.cadastra(COM_CLIENTID_INEXISTENTE.get)
+        }
+        with(thrown){
+            assertEquals(Status.INVALID_ARGUMENT.code, status.code)
+            assertEquals("Argumentos inválidos", status.description)
+        }
+    }
+
+    @Test
+    fun `falha em registrar chave passando conta null`(){
         val thrown = assertThrows<StatusRuntimeException> {
             grpcClient.cadastra(COM_CONTA_NULL.get)
         }
@@ -331,6 +342,17 @@ internal class NovaChaveEndpointTest(val grpcClient: KeyManagerServiceGrpc.KeyMa
                 get() {
                     return NovaChaveRequest.newBuilder()
                         .setClientId("de95a228-1f27-4ad2-907e-e5a2d816e9bc")
+                        .setTipoChave(br.com.zup.edu.TipoChave.CELULAR)
+                        .setChave("+5585988714077")
+                        .setTipoConta(br.com.zup.edu.TipoConta.CONTA_POUPANCA)
+                        .build()
+                }
+        },
+        COM_CLIENTID_INEXISTENTE{
+            override val get: NovaChaveRequest
+                get() {
+                    return NovaChaveRequest.newBuilder()
+                        .setClientId("21b2-2ac09233-4276-84fb-d83dbd9f8bab")
                         .setTipoChave(br.com.zup.edu.TipoChave.CELULAR)
                         .setChave("+5585988714077")
                         .setTipoConta(br.com.zup.edu.TipoConta.CONTA_POUPANCA)

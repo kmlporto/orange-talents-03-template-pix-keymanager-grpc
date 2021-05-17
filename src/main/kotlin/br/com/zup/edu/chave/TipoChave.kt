@@ -1,6 +1,4 @@
 package br.com.zup.edu.chave
-import io.micronaut.validation.validator.constraints.ConstraintValidatorContext
-import io.micronaut.validation.validator.constraints.EmailValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator
 
 
