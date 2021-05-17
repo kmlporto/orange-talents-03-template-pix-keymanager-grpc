@@ -8,13 +8,30 @@ option objc_class_prefix = "HLW";
 package br.com.zup.edu;
 
 service KeyManagerService {
-  rpc send (KeyManagerRequest) returns (KeyManagerReply) {}
+  rpc cadastra(NovaChaveRequest) returns (NovaChaveResponse){}
 }
 
-message KeyManagerRequest {
-  string name = 1;
+message NovaChaveRequest{
+  string clientId = 1;
+  TipoConta tipoConta = 2;
+  string chave = 3;
+  TipoChave tipoChave = 4;
 }
 
-message KeyManagerReply {
-  string message = 1;
+message NovaChaveResponse{
+  int64 pixId = 1;
+}
+
+enum TipoConta{
+  UNKNOWN_TIPO_CONTA = 0;
+  CONTA_POUPANCA = 1;
+  CONTA_CORRENTE = 2;
+}
+
+enum TipoChave{
+  UNKNOWN_TIPO_CHAVE = 0;
+  EMAIL = 1;
+  CPF = 2;
+  CELULAR = 3;
+  ALEATORIA = 4;
 }

@@ -8,3 +8,28 @@ services:
         image: "public.ecr.aws/d8b2x5c9/orange-stack-sat-itau-erp"
         ports: 
             - 9091:9091
+    postgres:
+        image: 'postgres:alpine'
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+
+    pgadmin:
+        image: dpage/pgadmin4
+        volumes:
+            - pgadmin-volume:/var/lib/pgadmin
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "pgadmin4@pgadmin.org"
+            PGADMIN_DEFAULT_PASSWORD: "admin"
+        ports:
+            - "16543:80"
+        depends_on:
+            - postgres
+        restart: unless-stopped
+volumes:
+    postgres-volume:
+    pgadmin-volume:
