@@ -1,6 +1,6 @@
 package br.com.zup.edu.chave.cadastra
 
-import br.com.zup.edu.KeyManagerServiceGrpc
+import br.com.zup.edu.KeyManagerCadastraServiceGrpc
 import br.com.zup.edu.NovaChaveRequest
 import br.com.zup.edu.NovaChaveResponse
 import br.com.zup.edu.chave.toNovaChave
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 @ErrorHandler
-class NovaChaveEndpoint(@Inject private val service: NovaChaveService) : KeyManagerServiceGrpc.KeyManagerServiceImplBase(){
+class NovaChaveEndpoint(@Inject private val service: NovaChaveService) : KeyManagerCadastraServiceGrpc.KeyManagerCadastraServiceImplBase(){
 
     override fun cadastra(request: NovaChaveRequest, responseObserver: StreamObserver<NovaChaveResponse>) {
         val novaChavePix = request.toNovaChave()

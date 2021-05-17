@@ -1,6 +1,6 @@
 package br.com.zup.edu.chave.remove
 
-import br.com.zup.edu.KeyManagerServiceGrpc
+import br.com.zup.edu.KeyManagerRemoveServiceGrpc
 import br.com.zup.edu.RemoveChaveRequest
 import br.com.zup.edu.RemoveChaveResponse
 import br.com.zup.edu.chave.toRemove
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @ErrorHandler
 @Singleton
-class RemoveChaveEndpoint(@Inject private val service: RemoveChaveService) : KeyManagerServiceGrpc.KeyManagerServiceImplBase(){
+class RemoveChaveEndpoint(@Inject private val service: RemoveChaveService) : KeyManagerRemoveServiceGrpc.KeyManagerRemoveServiceImplBase(){
 
     override fun remove(request: RemoveChaveRequest, responseObserver: StreamObserver<RemoveChaveResponse>) {
         val removeChavePix: RemoveChavePix = request.toRemove()

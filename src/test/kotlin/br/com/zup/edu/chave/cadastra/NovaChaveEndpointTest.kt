@@ -1,6 +1,6 @@
 package br.com.zup.edu.chave.cadastra
 
-import br.com.zup.edu.KeyManagerServiceGrpc
+import br.com.zup.edu.KeyManagerCadastraServiceGrpc
 import br.com.zup.edu.NovaChaveRequest
 import br.com.zup.edu.chave.ChavePix
 import br.com.zup.edu.chave.ChavePixRepository
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.assertThrows
 import javax.inject.Inject
 
 @MicronautTest(transactional = false)
-internal class NovaChaveEndpointTest(val grpcClient: KeyManagerServiceGrpc.KeyManagerServiceBlockingStub){
+internal class NovaChaveEndpointTest(val grpcClient: KeyManagerCadastraServiceGrpc.KeyManagerCadastraServiceBlockingStub){
 
     @Inject
     lateinit var repository: ChavePixRepository
@@ -220,8 +220,8 @@ internal class NovaChaveEndpointTest(val grpcClient: KeyManagerServiceGrpc.KeyMa
     @Factory
     class Clients{
         @Bean
-        fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): KeyManagerServiceGrpc.KeyManagerServiceBlockingStub{
-            return KeyManagerServiceGrpc.newBlockingStub(channel)
+        fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): KeyManagerCadastraServiceGrpc.KeyManagerCadastraServiceBlockingStub{
+            return KeyManagerCadastraServiceGrpc.newBlockingStub(channel)
         }
     }
 

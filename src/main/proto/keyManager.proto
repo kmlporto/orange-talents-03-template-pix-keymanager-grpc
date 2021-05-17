@@ -7,11 +7,9 @@ option objc_class_prefix = "HLW";
 
 package br.com.zup.edu;
 
-service KeyManagerService {
+service KeyManagerCadastraService {
   rpc cadastra(NovaChaveRequest) returns (NovaChaveResponse){}
-  rpc remove(RemoveChaveRequest) returns (RemoveChaveResponse){}
 }
-
 
 /**
     Cria nova chave pix
@@ -39,6 +37,10 @@ enum TipoChave{
   CPF = 2;
   CELULAR = 3;
   ALEATORIA = 4;
+}
+
+service KeyManagerRemoveService{
+  rpc remove(RemoveChaveRequest) returns (RemoveChaveResponse){}
 }
 
 /**
