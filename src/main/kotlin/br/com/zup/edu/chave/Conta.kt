@@ -13,5 +13,11 @@ class Conta (
     @Column(nullable = false)
     val nomeTitular: String,
     @Column(nullable = false)
-    val cpfTitular: String
-    )
+    val cpfTitular: String,
+    @Column(nullable = false)
+    val tipoConta: TipoConta
+    ){
+
+    val ITAU_ISPB = "60701190"
+}
+

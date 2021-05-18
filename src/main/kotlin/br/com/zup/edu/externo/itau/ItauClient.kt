@@ -1,4 +1,4 @@
-package br.com.zup.edu.externo
+package br.com.zup.edu.externo.itau
 
 import br.com.zup.edu.chave.Conta
 import br.com.zup.edu.chave.TipoConta
@@ -25,6 +25,7 @@ data class ContaResponse(val tipo: TipoConta, val instituicao: InstituicaoRespon
             instituicao = instituicao.nome,
             nomeTitular = titular.nome,
             cpfTitular = titular.cpf,
+            tipoConta = tipo
         )
     }
 }

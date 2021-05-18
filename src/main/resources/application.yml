@@ -11,4 +11,6 @@ datasources:
     dialect: POSTGRES
 jpa.default.properties.hibernate.hbm2ddl.auto: update
 itauERP:
-  url: ${ITAU_ERP:`http://localhost:9091/api/v1`}
+  url: ${ITAU_ERP_URL:`http://localhost:9091/api/v1`}
+BCB:
+  url: ${CBC_URL:`http://localhost:8082/api/v1`}

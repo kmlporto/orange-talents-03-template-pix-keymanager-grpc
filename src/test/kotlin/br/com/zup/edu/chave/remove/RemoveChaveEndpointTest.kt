@@ -18,13 +18,12 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import javax.inject.Inject
 
 @MicronautTest(transactional = false)
-internal class RemoveChaveEndpointTest(val grpcClient: KeyManagerRemoveServiceGrpc.KeyManagerRemoveServiceBlockingStub){
+internal class RemoveChaveEndpointTest(
+    val repository: ChavePixRepository,
+    val grpcClient: KeyManagerRemoveServiceGrpc.KeyManagerRemoveServiceBlockingStub){
 
-    @Inject
-    lateinit var repository: ChavePixRepository
 
     lateinit var request: RemoveChaveRequest
     lateinit var chaveCPF : ChavePix
