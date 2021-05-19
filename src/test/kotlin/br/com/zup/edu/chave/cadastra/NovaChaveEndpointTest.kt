@@ -46,7 +46,7 @@ internal class NovaChaveEndpointTest(
 
     @Test
     fun `registra chave tipo cpf valida`() {
-        Mockito.`when`(itauClient.consulta(chave().clientId, TipoConta.valueOf(conta().tipoConta.name)))
+        Mockito.`when`(itauClient.consulta(chave().clientId, conta().tipoConta.name))
             .thenReturn(HttpResponse.ok(itauResponse()))
 
         Mockito.`when`(bcbClient.cadastraPix(CreatePixKeyRequest(chave())))
@@ -60,7 +60,7 @@ internal class NovaChaveEndpointTest(
 
     @Test
     fun `falha em registrar chave repetida`() {
-        Mockito.`when`(itauClient.consulta(chave().clientId, TipoConta.valueOf(conta().tipoConta.name)))
+        Mockito.`when`(itauClient.consulta(chave().clientId, conta().tipoConta.name))
             .thenReturn(HttpResponse.ok(itauResponse()))
 
         Mockito.`when`(bcbClient.cadastraPix(CreatePixKeyRequest(chave())))
@@ -80,7 +80,7 @@ internal class NovaChaveEndpointTest(
 
     @Test
     fun `falha em registrar chave com conta que nao existe`(){
-        Mockito.`when`(itauClient.consulta(chave().clientId, TipoConta.valueOf(conta().tipoConta.name)))
+        Mockito.`when`(itauClient.consulta(chave().clientId, conta().tipoConta.name))
             .thenReturn(HttpResponse.notFound())
 
         val thrown = assertThrows<StatusRuntimeException> {
@@ -94,7 +94,7 @@ internal class NovaChaveEndpointTest(
 
     @Test
     fun `falha em registrar chave quando cliente itau retorna 500`(){
-        Mockito.`when`(itauClient.consulta(chave().clientId, TipoConta.valueOf(conta().tipoConta.name)))
+        Mockito.`when`(itauClient.consulta(chave().clientId, conta().tipoConta.name))
             .thenReturn(HttpResponse.ok(itauResponse()))
 
         Mockito.`when`(bcbClient.cadastraPix(CreatePixKeyRequest(chave())))

@@ -20,6 +20,7 @@ class Conta (
 
     companion object {
         public val ITAU_ISPB = "60701190"
+        public val ITAU = "ITAÚ UNIBANCO S.A."
     }
 }
 

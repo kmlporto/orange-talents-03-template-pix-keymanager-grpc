@@ -4,6 +4,7 @@ option java_multiple_files = true;
 option java_package = "br.com.zup.edu";
 option java_outer_classname = "KeyManager";
 option objc_class_prefix = "HLW";
+import "google/protobuf/timestamp.proto";
 
 package br.com.zup.edu;
 
@@ -54,4 +55,46 @@ message RemoveChaveRequest{
 message RemoveChaveResponse{
   string clientId = 1;
   string pixId = 2;
+}
+
+/**
+    Consulta chave pix
+ */
+service KeyManagerConsultaService{
+  rpc consulta(ConsultaChaveRequest) returns (ConsultaChaveResponse){}
+}
+
+message ConsultaChaveRequest{
+  message ByClient{
+    string clientId = 1;
+    string pixId = 2;
+  }
+
+  oneof filtro{
+    ByClient byClient = 1;
+    string byChave = 2;
+  }
+}
+
+message ConsultaChaveResponse{
+  string clientId = 1;
+  string pixId = 2;
+  TipoChave tipoChave = 3;
+  string valorChave = 4;
+  TitularResponse titular = 5;
+  ContaResponse conta = 6;
+  google.protobuf.Timestamp criadoEm = 7;
+
+}
+
+message ContaResponse{
+  string instituicao = 1;
+  string agencia = 2;
+  string numero = 3;
+  TipoConta tipoConta = 4;
+}
+
+message TitularResponse{
+  string nome = 1;
+  string cpf = 2;
 }

@@ -27,7 +27,7 @@ class NovaChaveService(
         if(repository.existsByChave(novaChavePix.chave!!))
             throw ChaveExistenteException()
 
-        val responseItau = itauClient.consulta(novaChavePix.clientId!!, novaChavePix.tipoConta!!)
+        val responseItau = itauClient.consulta(novaChavePix.clientId!!, novaChavePix.tipoConta!!.name)
 
         val conta = responseItau.body()?.toModel() ?: throw IllegalArgumentException("Conta inválida")
 

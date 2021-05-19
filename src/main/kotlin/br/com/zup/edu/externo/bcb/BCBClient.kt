@@ -1,5 +1,7 @@
 package br.com.zup.edu.externo.bcb
 
+import br.com.zup.edu.ContaResponse
+import br.com.zup.edu.TitularResponse
 import br.com.zup.edu.chave.ChavePix
 import br.com.zup.edu.chave.Conta
 import br.com.zup.edu.chave.TipoChave
@@ -23,7 +25,19 @@ interface BCBClient {
     @Produces(MediaType.APPLICATION_XML)
     fun removePix(@PathVariable key: String, @Body request: DeletePixKeyRequest): HttpResponse<DeletePixKeyResponse>
 
+    @Get(value = "/pix/keys/{key}")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    fun consultaPix(@PathVariable key:String): HttpResponse<PixKeyDetailsResponse>
 }
+
+data class PixKeyDetailsResponse(
+    val keyType: PixKeyType,
+    val key: String,
+    val bankAccount: BankAccount,
+    val owner: Owner,
+    val createdAt: LocalDateTime
+)
 
 data class DeletePixKeyRequest(
     val key: String,
@@ -69,6 +83,15 @@ enum class PixKeyType {
     EMAIL,
     RANDOM;
 
+    fun toTipoChave(): br.com.zup.edu.TipoChave {
+        return when(this){
+            CPF ->  br.com.zup.edu.TipoChave.CPF
+            PHONE ->  br.com.zup.edu.TipoChave.CELULAR
+            EMAIL ->  br.com.zup.edu.TipoChave.EMAIL
+            RANDOM ->  br.com.zup.edu.TipoChave.ALEATORIA
+        }
+    }
+
     companion object{
         fun translate(tipoChave: TipoChave): PixKeyType{
             return when(tipoChave){
@@ -83,6 +106,13 @@ enum class PixKeyType {
 
 enum class AccontType {
     CACC, SVGS;
+
+    fun toTipoConta(): br.com.zup.edu.TipoConta {
+        return when(this){
+            CACC -> br.com.zup.edu.TipoConta.CONTA_POUPANCA
+            SVGS -> br.com.zup.edu.TipoConta.CONTA_CORRENTE
+        }
+    }
 
     companion object{
         fun translate(tipoConta: TipoConta): AccontType {
@@ -101,6 +131,14 @@ data class BankAccount(
     val accountNumber: String,
     val accountType: AccontType
 ){
+    fun toContaResponse(): ContaResponse {
+        return ContaResponse.newBuilder()
+            .setInstituicao(Conta.ITAU)
+            .setAgencia(branch)
+            .setNumero(accountNumber)
+            .setTipoConta(accountType.toTipoConta())
+            .build()
+    }
 
     constructor(conta: Conta):
             this(
@@ -116,6 +154,13 @@ data class Owner(
     val name: String,
     val taxIdNumber: String
 ) {
+    fun toTitularResponse(): TitularResponse {
+        return TitularResponse.newBuilder()
+            .setCpf(taxIdNumber)
+            .setNome(name)
+            .build()
+    }
+
     enum class OwnerType {
         NATURAL_PERSON;
     }
