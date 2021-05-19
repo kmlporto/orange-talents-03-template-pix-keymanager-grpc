@@ -12,7 +12,7 @@ import io.micronaut.http.client.annotation.Client
 interface ItauClient {
 
     @Get("/clientes/{clientId}/contas")
-    fun consulta(@PathVariable clientId: String, @QueryValue tipo: TipoConta) : HttpResponse<ContaResponse>
+    fun consulta(@PathVariable clientId: String, @QueryValue tipoConta: TipoConta) : HttpResponse<ContaResponse>
 
 }
 

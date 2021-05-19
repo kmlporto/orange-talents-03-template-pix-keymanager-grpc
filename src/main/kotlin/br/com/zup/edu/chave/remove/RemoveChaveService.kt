@@ -2,6 +2,7 @@ package br.com.zup.edu.chave.remove
 
 import br.com.zup.edu.chave.ChavePix
 import br.com.zup.edu.chave.ChavePixRepository
+import br.com.zup.edu.chave.Conta
 import br.com.zup.edu.externo.bcb.BCBClient
 import br.com.zup.edu.externo.bcb.DeletePixKeyRequest
 import io.micronaut.http.HttpStatus
@@ -22,7 +23,7 @@ class RemoveChaveService(
     fun remove(@Valid remove: RemoveChavePix){
         val chavePix: ChavePix = repository.findByIdAndClientId(remove.pixId.toLong(), remove.clientId)
 
-        val responseBCB = bcbClient.removePix(chavePix.chave, DeletePixKeyRequest(chavePix.chave, chavePix.conta.ITAU_ISPB))
+        val responseBCB = bcbClient.removePix(chavePix.chave, DeletePixKeyRequest(chavePix.chave, Conta.ITAU_ISPB))
 
         if(responseBCB.status != HttpStatus.OK)
             throw IllegalArgumentException("Erro ao deletar pix no Banco Central")

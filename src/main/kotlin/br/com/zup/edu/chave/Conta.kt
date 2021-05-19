@@ -18,6 +18,8 @@ class Conta (
     val tipoConta: TipoConta
     ){
 
-    val ITAU_ISPB = "60701190"
+    companion object {
+        public val ITAU_ISPB = "60701190"
+    }
 }
 

@@ -61,12 +61,7 @@ data class CreatePixKeyResponse(
     val bankAccount: BankAccount,
     val owner: Owner,
     val createdAt: LocalDateTime
-) {
-    fun atualiza(chave: ChavePix): ChavePix {
-        chave.chave = key
-        return chave
-    }
-}
+)
 
 enum class PixKeyType {
     CPF,
@@ -109,7 +104,7 @@ data class BankAccount(
 
     constructor(conta: Conta):
             this(
-                participant = conta.ITAU_ISPB,
+                participant = Conta.ITAU_ISPB,
                 branch = conta.agencia,
                 accountNumber = conta.numero,
                 AccontType.translate(conta.tipoConta)
