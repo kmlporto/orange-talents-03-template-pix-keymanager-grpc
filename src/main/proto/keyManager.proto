@@ -98,3 +98,27 @@ message TitularResponse{
   string nome = 1;
   string cpf = 2;
 }
+
+/**
+    Listagem de chave pix
+ */
+service KeyManagerListagemService{
+  rpc listagem(ListaChaveRequest) returns (ListaChaveResponse){}
+}
+
+message ListaChaveRequest{
+  string clientId = 1;
+}
+
+message ListaChaveResponse{
+  repeated DetalheChaveResponse chaves = 1;
+}
+
+message DetalheChaveResponse{
+  string clientId = 1;
+  string pixId = 2;
+  TipoChave tipoChave = 3;
+  string valorChave = 4;
+  TipoConta tipoConta = 5;
+  google.protobuf.Timestamp criadoEm = 7;
+}
