@@ -42,8 +42,8 @@ data class ConsultaDetail(
         fun convert(responseBCB: PixKeyDetailsResponse): ConsultaDetail{
             return with(responseBCB){
                 ConsultaDetail(
-                    clientId = null,
-                    pixId = null,
+                    clientId = "",
+                    pixId = "",
                     tipoChave = keyType.toTipoChave(),
                     valorChave = key,
                     conta = bankAccount.toContaResponse(),

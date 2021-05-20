@@ -154,6 +154,14 @@ data class Owner(
     val name: String,
     val taxIdNumber: String
 ) {
+
+    constructor(conta: Conta) :
+            this(
+                type = OwnerType.NATURAL_PERSON,
+                name = conta.nomeTitular,
+                taxIdNumber = conta.cpfTitular
+            )
+
     fun toTitularResponse(): TitularResponse {
         return TitularResponse.newBuilder()
             .setCpf(taxIdNumber)
