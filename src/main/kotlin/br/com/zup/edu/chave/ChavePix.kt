@@ -1,5 +1,6 @@
 package br.com.zup.edu.chave
 
+import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -30,8 +31,10 @@ class ChavePix(
 
     @Id
     @GeneratedValue
-    var id: Long? =null
+    var id: Long? = null
 
+    @Column(nullable = false)
+    val criadoEm = LocalDateTime.now()
 
     fun atualiza(chave: String){
         this.chave = chave

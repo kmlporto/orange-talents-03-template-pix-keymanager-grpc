@@ -8,7 +8,6 @@ import br.com.zup.edu.RemoveChaveRequest
 import br.com.zup.edu.TipoChave.UNKNOWN_TIPO_CHAVE
 import br.com.zup.edu.TipoConta.UNKNOWN_TIPO_CONTA
 import br.com.zup.edu.chave.cadastra.NovaChavePix
-import br.com.zup.edu.chave.consulta.ConsultaChavePix
 import br.com.zup.edu.chave.consulta.Filtro
 import br.com.zup.edu.chave.remove.RemoveChavePix
 import io.micronaut.validation.validator.Validator
@@ -31,10 +30,6 @@ fun NovaChaveRequest.toNovaChave(): NovaChavePix {
 
 fun RemoveChaveRequest.toRemove(): RemoveChavePix {
     return RemoveChavePix(clientId = this.clientId, pixId = this.pixId)
-}
-
-fun ConsultaChaveRequest.toConsultRequest(): ConsultaChavePix {
-    return ConsultaChavePix(clientId = this.byClient.clientId, pixId = this.byClient.pixId)
 }
 
 fun ConsultaChaveRequest.toModel(validator: Validator): Filtro {
