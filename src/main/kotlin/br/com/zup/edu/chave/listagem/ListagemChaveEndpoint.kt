@@ -14,6 +14,9 @@ import javax.inject.Singleton
 class ListagemChaveEndpoint(@Inject val repository: ChavePixRepository): KeyManagerListagemServiceGrpc.KeyManagerListagemServiceImplBase() {
 
     override fun listagem(request: ListaChaveRequest, responseObserver: StreamObserver<ListaChaveResponse>) {
+        if(request.clientId.isNullOrBlank())
+            throw IllegalArgumentException("ClientId não pode ser nulo ou vazio")
+
         val chaves = repository.findAllByClientId(request.clientId)
 
         val listaChaveResponse: List<DetalheChaveResponse> = chaves.map {
