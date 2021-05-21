@@ -1,6 +1,7 @@
 package br.com.zup.edu.chave
 
 import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -31,7 +32,7 @@ class ChavePix(
 
     @Id
     @GeneratedValue
-    var id: Long? = null
+    var id: UUID? = null
 
     @Column(nullable = false)
     val criadoEm = LocalDateTime.now()

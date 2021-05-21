@@ -29,14 +29,14 @@ class NovaChaveService(
 
         val responseItau = itauClient.consulta(novaChavePix.clientId!!, novaChavePix.tipoConta!!.name)
 
-        val conta = responseItau.body()?.toModel() ?: throw IllegalArgumentException("Conta inválida")
+        val conta = responseItau.body()?.toModel() ?: throw IllegalStateException("Conta inválida")
 
         var chave = novaChavePix.toChavePix(conta)
 
         val responseBcb = bcbClient.cadastraPix(CreatePixKeyRequest(chave))
 
         if(responseBcb.status != HttpStatus.CREATED)
-            throw IllegalArgumentException("Erro ao cadastrar pix no Banco Central")
+            throw IllegalStateException("Erro ao cadastrar pix no Banco Central")
 
         chave.atualiza(responseBcb.body()!!.key)
 

@@ -18,7 +18,7 @@ class NovaChaveEndpoint(@Inject private val service: NovaChaveService) : KeyMana
 
         val chavePix = service.registra(novaChavePix)
 
-        responseObserver.onNext(NovaChaveResponse.newBuilder().setPixId(chavePix.id!!).build())
+        responseObserver.onNext(NovaChaveResponse.newBuilder().setPixId(chavePix.id.toString()).build())
         responseObserver.onCompleted()
     }
 

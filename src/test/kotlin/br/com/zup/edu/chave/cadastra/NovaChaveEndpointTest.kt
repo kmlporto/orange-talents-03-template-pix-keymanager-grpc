@@ -87,7 +87,7 @@ internal class NovaChaveEndpointTest(
             grpcClient.cadastra(CHAVE_VALIDA.get)
         }
         with(thrown){
-            assertEquals(Status.INVALID_ARGUMENT.code, status.code)
+            assertEquals(Status.FAILED_PRECONDITION.code, status.code)
             assertEquals("Conta inválida", status.description)
         }
     }
@@ -104,7 +104,7 @@ internal class NovaChaveEndpointTest(
             grpcClient.cadastra(CHAVE_VALIDA.get)
         }
         with(thrown){
-            assertEquals(Status.INVALID_ARGUMENT.code, status.code)
+            assertEquals(Status.FAILED_PRECONDITION.code, status.code)
             assertEquals("Erro ao cadastrar pix no Banco Central", status.description)
         }
     }

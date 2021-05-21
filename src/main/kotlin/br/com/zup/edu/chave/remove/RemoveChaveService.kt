@@ -21,7 +21,7 @@ class RemoveChaveService(
 
     @Transactional
     fun remove(@Valid remove: RemoveChavePix){
-        val chavePix: ChavePix = repository.findByIdAndClientId(remove.pixId.toLong(), remove.clientId)
+        val chavePix: ChavePix = repository.findByIdAndClientId(remove.pixId, remove.clientId)
 
         val responseBCB = bcbClient.removePix(chavePix.chave, DeletePixKeyRequest(chavePix.chave, Conta.ITAU_ISPB))
 

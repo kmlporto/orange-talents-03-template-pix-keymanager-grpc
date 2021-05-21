@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import java.time.LocalDateTime
+import java.util.*
 import javax.inject.Inject
 
 @MicronautTest(transactional = false)
@@ -124,7 +125,7 @@ internal class RemoveChaveEndpointTest(
         return RemoveChaveRequest
             .newBuilder()
             .setClientId(chave().clientId)
-            .setPixId("1")
+            .setPixId(UUID.randomUUID().toString())
             .build()
     }
 

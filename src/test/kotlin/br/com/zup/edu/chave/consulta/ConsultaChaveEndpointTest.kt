@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
+import java.util.*
 import javax.inject.Inject
 
 @MicronautTest(transactional = false)
@@ -54,7 +55,7 @@ internal class ConsultaChaveEndpointTest(
     @Test
     fun `falha em consultar chave byClient nao cadastrada`(){
         val thrown = assertThrows<StatusRuntimeException>{
-            grpcClient.consulta(consultaByClientRequest(chave().clientId, chave().id))
+            grpcClient.consulta(consultaByClientRequest(chave().clientId, UUID.randomUUID()))
         }
 
         with(thrown){
@@ -149,11 +150,11 @@ internal class ConsultaChaveEndpointTest(
         )
     }
 
-    private fun consultaByClientRequest(clientId: String, pixId: Long?): ConsultaChaveRequest{
+    private fun consultaByClientRequest(clientId: String, pixId: UUID?): ConsultaChaveRequest{
         return ConsultaChaveRequest.newBuilder()
             .setByClient(ConsultaChaveRequest.ByClient.newBuilder()
                                                         .setClientId(clientId)
-                                                        .setPixId(pixId?.toString() ?: "1")
+                                                        .setPixId(pixId.toString())
                                                         .build())
             .build()
 

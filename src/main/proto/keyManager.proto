@@ -23,7 +23,7 @@ message NovaChaveRequest{
 }
 
 message NovaChaveResponse{
-  int64 pixId = 1;
+  string pixId = 1;
 }
 
 enum TipoConta{

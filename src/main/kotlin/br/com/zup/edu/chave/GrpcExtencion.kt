@@ -11,6 +11,7 @@ import br.com.zup.edu.chave.cadastra.NovaChavePix
 import br.com.zup.edu.chave.consulta.Filtro
 import br.com.zup.edu.chave.remove.RemoveChavePix
 import io.micronaut.validation.validator.Validator
+import java.util.*
 import javax.validation.ConstraintViolationException
 
 fun NovaChaveRequest.toNovaChave(): NovaChavePix {
@@ -29,13 +30,13 @@ fun NovaChaveRequest.toNovaChave(): NovaChavePix {
 }
 
 fun RemoveChaveRequest.toRemove(): RemoveChavePix {
-    return RemoveChavePix(clientId = this.clientId, pixId = this.pixId)
+    return RemoveChavePix(clientId = this.clientId, pixId = UUID.fromString(this.pixId))
 }
 
 fun ConsultaChaveRequest.toModel(validator: Validator): Filtro {
     val filtro = when(filtroCase){
         BYCHAVE -> Filtro.ByChave(byChave)
-        BYCLIENT -> byClient.let { Filtro.ByClient(byClient.clientId, byClient.pixId) }
+        BYCLIENT -> byClient.let { Filtro.ByClient(byClient.clientId, UUID.fromString(byClient.pixId) ) }
         else -> Filtro.Invalido()
     }
 

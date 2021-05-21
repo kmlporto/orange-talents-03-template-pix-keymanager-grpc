@@ -5,7 +5,9 @@ import br.com.zup.edu.exceptions.NotFoundException
 import br.com.zup.edu.externo.bcb.BCBClient
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.http.HttpStatus
+import java.util.*
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Introspected
@@ -34,10 +36,10 @@ sealed class Filtro {
 
     @Introspected
     data class ByClient(@field:NotBlank val clientId: String,
-                        @field:NotBlank val pixId: String): Filtro(){
+                        @field:NotNull val pixId: UUID): Filtro(){
 
         override fun filtra(repository: ChavePixRepository, bcbClient: BCBClient): ConsultaDetail{
-            val chaveOptional = repository.findById(pixId.toLong())
+            val chaveOptional = repository.findById(pixId)
 
             if(!chaveOptional.isPresent)
                 throw NotFoundException("Chave não cadastrada no sistema")
