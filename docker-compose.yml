@@ -4,16 +4,22 @@ services:
         image: "public.ecr.aws/d8b2x5c9/orange-stack-sat-bcb-pix"
         ports: 
             - 8082:8082
+        networks:
+            - key-manager-grpc
     erp-itau:
         image: "public.ecr.aws/d8b2x5c9/orange-stack-sat-itau-erp"
         ports: 
             - 9091:9091
+        networks:
+            - key-manager-grpc
     postgres:
         image: 'postgres:alpine'
         volumes:
             - postgres-volume:/var/lib/postgresql/data
         ports:
             - 5432:5432
+        networks:
+            - key-manager-grpc
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
@@ -27,9 +33,31 @@ services:
             PGADMIN_DEFAULT_PASSWORD: "admin"
         ports:
             - "16543:80"
+        networks:
+            - key-manager-grpc
         depends_on:
             - postgres
         restart: unless-stopped
+    key-manager:
+        build: ./
+        restart: on-failure
+        ports:
+            - "50051:50051"
+        networks:
+            - key-manager-grpc
+        depends_on:
+            - postgres
+            - bcb
+            - erp-itau
+        environment:
+            DB_URL: jdbc:postgresql://postgres:5432/pix
+            DB_USR: postgres
+            DB_PSW: postgres
+            ITAU_ERP_URL: http://erp-itau:9091/api/v1
+            CBC_URL: http://bcb:8082/api/v1
 volumes:
     postgres-volume:
     pgadmin-volume:
+networks:
+    key-manager-grpc:
+        driver: "bridge"
